@@ -1,0 +1,6 @@
+---
+- name: Restart sudo
+  listen: restart_sudo
+  ansible.builtin.service:
+    name: sudo
+    state: restarted

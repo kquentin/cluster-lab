@@ -1,0 +1,23 @@
+---
+- name: Update package index and upgrade distribution
+  ansible.builtin.apt:
+    update_cache: "yes"
+    cache_valid_time: 3600
+    upgrade: "{{ apt_upgrade }}"
+    autoclean: "yes"
+    autoremove: "yes"
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ apt_default_packages + apt_extra_packages }}"
+
+- name: Reboot host
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 5
+    reboot_timeout: 600
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: whoami
+  when:
+    - apt_upgrade in ["dist", "full"]

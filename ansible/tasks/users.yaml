@@ -1,0 +1,13 @@
+---
+- name: Register default user
+  ansible.builtin.user:
+    name: "{{ default_user }}"
+    state: present
+  register: user_registered
+
+- name: Setting default user facts so that they will be persisted in the fact cache
+  ansible.builtin.set_fact:
+    default_user_name: "{{ user_registered.name }}"
+    default_user_uid: "{{ user_registered.uid }}"
+    default_user_gid: "{{ user_registered.group }}"
+    default_user_home: "{{ user_registered.home }}"

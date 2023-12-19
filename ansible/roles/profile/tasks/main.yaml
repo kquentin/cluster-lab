@@ -1,0 +1,35 @@
+---
+- name: Create .bashrc.d directory
+  ansible.builtin.file:
+    path: "{{ profile_value.home }}/.bashrc.d"
+    state: directory
+    owner: "{{ profile_value.uid }}"
+    group: "{{ profile_value.gid }}"
+    mode: '0755'
+  loop: "{{ profile_entries }}"
+  loop_control:
+    loop_var: profile_value
+
+- name: Add bashrc.d file related to PS1 into .bashrc.d directory
+  ansible.builtin.template:
+    src: "001_ps1.bash.j2"
+    dest: "{{ profile_value.home }}/.bashrc.d/001_ps1.bash"
+    owner: "{{ profile_value.uid }}"
+    group: "{{ profile_value.gid }}"
+    mode: "0644"
+  loop: "{{ profile_entries }}"
+  loop_control:
+    loop_var: profile_value
+
+- name: Add loop in .bashrc which allows to load the files inside .bashrc.d directory
+  ansible.builtin.blockinfile:
+    path: "{{ profile_value.home }}/.bashrc"
+    marker: "# {mark} - BASHRC.D ANSIBLE MANAGED BLOCK"
+    block: |
+      for file in "{{ profile_value.home }}"/.bashrc.d/*.bash ; do
+          . "$file"
+      done
+      unset -v file
+  loop: "{{ profile_entries }}"
+  loop_control:
+    loop_var: profile_value

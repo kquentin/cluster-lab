@@ -1,0 +1,14 @@
+---
+default_user: "user"
+default_hostname: "{{ inventory_hostname }}"
+
+## Refers to the APT role.
+apt_upgrade: "dist"
+apt_extra_packages:
+  - sudo
+
+## Refers to the SSHD role.
+sshd_config_port: "17852"
+sshd_config_permit_root_login: "no"
+sshd_config_x11_forwarding: "no"
+sshd_config_password_authentication: "no"

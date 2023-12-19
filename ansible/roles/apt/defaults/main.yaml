@@ -1,0 +1,6 @@
+---
+apt_default_packages:
+  - apt-transport-https
+
+apt_upgrade: "no"
+apt_extra_packages: []

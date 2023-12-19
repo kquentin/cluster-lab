@@ -1,0 +1,10 @@
+---
+- name: Configure SSHD
+  ansible.builtin.template:
+    src: "{{ sshd_templates_directory }}/sshd_config.j2"
+    dest: "/etc/ssh/sshd_config"
+    owner: "{{ sshd_user_uid }}"
+    group: "{{ sshd_user_gid }}"
+    mode: "0644"
+  notify:
+    - restart_sshd

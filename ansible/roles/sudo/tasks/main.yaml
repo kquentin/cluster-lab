@@ -1,0 +1,15 @@
+---
+- name: Check if default user is in sudo group
+  ansible.builtin.command: "groups {{ sudo_user }}"
+  register: user_groups
+  changed_when: false
+  ignore_errors: true
+
+- name: Add default user to sudo group
+  ansible.builtin.user:
+    name: "{{ sudo_user }}"
+    groups: sudo
+    append: yes
+  when: "'sudo' not in user_groups.stdout"
+  notify:
+    - restart_sudo

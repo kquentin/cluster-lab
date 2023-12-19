@@ -1,0 +1,4 @@
+# https://github.com/ansible/ansible-lint/blob/main/.ansible-lint
+---
+loop_var_prefix: "{role}_"
+use_default_rules: true

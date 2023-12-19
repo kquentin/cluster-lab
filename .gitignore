@@ -1,2 +1,3 @@
+ansible/.env
+ansible/ssh_config
 ansible/default.ini
-

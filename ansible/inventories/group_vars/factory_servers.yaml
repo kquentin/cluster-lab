@@ -1,7 +1,4 @@
 ---
-default_user: "user"
-default_hostname: "{{ inventory_hostname }}"
-
 ## Refers to the APT role.
 apt_upgrade: "dist"
 apt_extra_packages:

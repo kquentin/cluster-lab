@@ -1,12 +1,10 @@
 ---
 - name: Configure base system
-  hosts: default-smp
+  hosts: factory_servers
   gather_facts: "yes"
   become: "yes"
   become_method: "su"
   pre_tasks:
-    - name: Include variables
-      ansible.builtin.include_vars: "vars/base_vars.yaml"
     - name: Handle users
       ansible.builtin.include_tasks: "tasks/users.yaml"
   roles:

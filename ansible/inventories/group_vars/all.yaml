@@ -1,0 +1,3 @@
+---
+default_user: "user"
+default_hostname: "{{ inventory_hostname }}"
